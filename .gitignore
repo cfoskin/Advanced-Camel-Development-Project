@@ -1,0 +1,13 @@
+log/
+target/
+.classpath
+.project
+.settings/
+.DS_Store
+core/.DS_Store
+core/.settings/
+core/.project
+core/**/target/
+core/**/.settings
+core/**/.project
+
