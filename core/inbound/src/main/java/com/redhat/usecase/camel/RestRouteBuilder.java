@@ -9,13 +9,16 @@ public class RestRouteBuilder extends RouteBuilder{
 	@Override
 	public void configure() throws Exception {
 		 
+		onException(IllegalArgumentException.class)
+        .to("log:fail")
+        .handled(true);
+		
 		from("direct:integrateRoute")
-       	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "direct:integrateRoute called")
+       	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "Body before the call : ${body}")
        	.setExchangePattern(ExchangePattern.InOut)
        	.transform(constant(2))
        	.end()
        ;
 		
 	}
-
 }
