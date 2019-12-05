@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.camel.CamelExecutionException;
+import org.apache.camel.Endpoint;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.cxf.jaxrs.impl.ResponseBuilderImpl;
@@ -36,9 +37,11 @@ public class DEIMServiceImpl implements DEIMService {
     // This header is used to direct the message in the Camel route
     Map<String, Object> headers = new HashMap<String, Object>();
     headers.put("METHOD", "match");
-
+    
+    Endpoint ep = template.getDefaultEndpoint();
+    
     try {
-      String camelResponse = template.requestBodyAndHeaders(template.getDefaultEndpoint(),
+      String camelResponse = template.requestBodyAndHeaders(ep,
       person, headers, String.class);
 
       ESBResponse esbResponse = new ESBResponse();
