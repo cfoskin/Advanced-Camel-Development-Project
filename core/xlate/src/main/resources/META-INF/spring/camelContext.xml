@@ -8,7 +8,6 @@
         <constructor-arg value="com.sun.mdm.index.webservice.PersonEJB"/>
         <constructor-arg value="true"/>
     </bean>
-    
     <!-- ActiveMQ -->
     <bean class="org.apache.activemq.ActiveMQConnectionFactory" id="jmsConnectionFactory">
         <property name="brokerURL" value="tcp://localhost:61616"/>
@@ -21,17 +20,14 @@
     <bean class="org.springframework.jms.core.JmsTemplate" id="jmsTemplate">
         <property name="connectionFactory" ref="pooledConnectionFactory"/>
     </bean>
-    
     <bean class="com.redhat.customer.camel.XlateRoutebuilder" id="xlateRouteBuilder"/>
-    
     <camelContext id="xlatePerson" trace="false"
         typeConverterStatisticsEnabled="true" xmlns="http://camel.apache.org/schema/spring">
-         <routeBuilder ref="xlateRouteBuilder"/>
+        <routeBuilder ref="xlateRouteBuilder"/>
         <dataFormats>
             <soapjaxb contextPath="com.sun.mdm.index.webservice"
                 elementNameStrategyRef="serviceStrategy" id="nextgateFormat"/>
             <jaxb contextPath="com.customer.app" id="personFormat" partClass="com.customer.app.Person"/>
         </dataFormats>
-      
     </camelContext>
 </beans>
