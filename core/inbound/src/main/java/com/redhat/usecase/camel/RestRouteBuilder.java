@@ -17,7 +17,7 @@ public class RestRouteBuilder extends RouteBuilder{
 		from("direct:integrateRoute")
        	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "Body before the call : ${body}")
        	.setExchangePattern(ExchangePattern.InOnly)
-       	.to("direct:marshallXml")
+       	.to("direct:marshallXml")//this is a route defined in spring DSL
        	.to("activemq:queue:q.empi.deim.in")
        	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "After marshalling: ${body}")
        	.transform(constant(2))
