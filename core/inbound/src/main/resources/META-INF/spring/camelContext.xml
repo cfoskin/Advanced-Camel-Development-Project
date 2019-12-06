@@ -15,22 +15,18 @@
             <ref bean="demographicImpl"/>
         </jaxrs:serviceBeans>
     </jaxrs:server>
-    
     <!-- ActiveMQ -->
-    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-        <property name="brokerURL" value="tcp://localhost:61616" />
+    <bean class="org.apache.activemq.ActiveMQConnectionFactory" id="jmsConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616"/>
     </bean>
-    
-    <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
-        init-method="start" destroy-method="stop">
-        <property name="maxConnections" value="6" />
-        <property name="connectionFactory" ref="jmsConnectionFactory" />
+    <bean class="org.apache.activemq.pool.PooledConnectionFactory"
+        destroy-method="stop" id="pooledConnectionFactory" init-method="start">
+        <property name="maxConnections" value="6"/>
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
     </bean>
- 
-    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <bean class="org.springframework.jms.core.JmsTemplate" id="jmsTemplate">
         <property name="connectionFactory" ref="pooledConnectionFactory"/>
     </bean>
-
     <bean class="com.redhat.usecase.camel.RestRouteBuilder" id="myRouteBuilder"/>
     <camelContext id="inboundRest" xmlns="http://camel.apache.org/schema/spring">
         <routeBuilder ref="myRouteBuilder"/>
