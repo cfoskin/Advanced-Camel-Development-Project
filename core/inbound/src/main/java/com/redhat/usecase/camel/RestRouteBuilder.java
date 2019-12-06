@@ -8,17 +8,20 @@ public class RestRouteBuilder extends RouteBuilder{
 
 	@Override
 	public void configure() throws Exception {
-		 
+		//exception handling
 		onException(IllegalArgumentException.class)
         .to("log:fail")
         .handled(true);
 		
+		//the inbound route
 		from("direct:integrateRoute")
        	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "Body before the call : ${body}")
-       	.setExchangePattern(ExchangePattern.InOut)
+       	.setExchangePattern(ExchangePattern.InOnly)
+       	.to("direct:marshallXml")
+       	.to("activemq:queue:q.empi.deim.in")
+       	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "After marshalling: ${body}")
        	.transform(constant(2))
        	.end()
        ;
-		
 	}
 }
