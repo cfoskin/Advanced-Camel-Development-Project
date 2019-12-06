@@ -7,6 +7,11 @@ public class XlateRoutebuilder extends RouteBuilder {
 
 	@Override
 	public void configure() throws Exception {
+		
+		onException(IllegalArgumentException.class)
+        .to("log:fail")
+        .handled(true);
+		
 		from("activemq:queue:q.empi.deim.in")
        	.log(LoggingLevel.INFO, "com.redhat.customer.camel.XlateRoutebuilder", "Retrieved from the queue : ${body}")
 		.to("direct:unmarshallXml")
