@@ -23,5 +23,10 @@ public class RestRouteBuilder extends RouteBuilder{
        	.transform(constant(2))
        	.end()
        ;
+		
+		
+		from("activemq:queue:q.empi.deim.in")
+       	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "Retrieved from the queue : ${body}");
+
 	}
 }
