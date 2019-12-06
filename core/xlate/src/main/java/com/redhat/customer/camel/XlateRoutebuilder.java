@@ -8,8 +8,9 @@ public class XlateRoutebuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		from("activemq:queue:q.empi.deim.in")
-       	.log(LoggingLevel.INFO, "com.usecase.camel.RestRouteBuilder", "Retrieved from the queue : ${body}");
-		
+       	.log(LoggingLevel.INFO, "com.redhat.customer.camel.XlateRoutebuilder", "Retrieved from the queue : ${body}")
+		.to("direct:unmarshallXml")
+		.log(LoggingLevel.INFO, "com.redhat.customer.camel.XlateRoutebuilder", "Unmarshalled from XML to: ${body}");
 	}
 
 }

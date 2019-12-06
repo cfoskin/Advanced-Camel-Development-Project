@@ -29,5 +29,9 @@
                 elementNameStrategyRef="serviceStrategy" id="nextgateFormat"/>
             <jaxb contextPath="com.customer.app" id="personFormat" partClass="com.customer.app.Person"/>
         </dataFormats>
+         <route id="unmarshallXmlRoute">
+            <from id="unmarshallXml" uri="direct:unmarshallXml"/>
+            <unmarshal id="unmarshal1" ref="personFormat"/>
+        </route>
     </camelContext>
 </beans>
