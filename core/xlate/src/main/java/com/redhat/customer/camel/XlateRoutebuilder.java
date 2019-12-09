@@ -1,6 +1,7 @@
 package com.redhat.customer.camel;
 
 import org.apache.camel.LoggingLevel;
+import org.apache.camel.TypeConversionException;
 import org.apache.camel.builder.RouteBuilder;
 
 public class XlateRoutebuilder extends RouteBuilder {
@@ -8,7 +9,7 @@ public class XlateRoutebuilder extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		
-		onException(IllegalArgumentException.class)
+		onException(TypeConversionException.class)
         .to("log:fail")
         .handled(true);
 		
