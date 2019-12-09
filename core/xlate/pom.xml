@@ -27,7 +27,6 @@
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-cxf</artifactId>
     </dependency>
-   c
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-soap</artifactId>
