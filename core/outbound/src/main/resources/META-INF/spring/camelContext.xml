@@ -28,6 +28,12 @@
     <bean class="org.springframework.jms.core.JmsTemplate" id="jmsTemplate">
         <property name="connectionFactory" ref="pooledConnectionFactory"/>
     </bean>
+     <bean
+        class="org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy" id="serviceStrategy">
+        <constructor-arg value="com.sun.mdm.index.webservice.PersonEJB"/>
+        <constructor-arg value="true"/>
+    </bean>
+    
     <bean class="com.redhat.customer.camel.OutboundRouteBuilder" id="outboundRouteBuilder"/>
     
     <camelContext id="outboundSOAP" trace="false" xmlns="http://camel.apache.org/schema/spring">
