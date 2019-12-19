@@ -8,7 +8,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class CamelContextXmlTest extends CamelSpringTestSupport {
 
-	// TODO Create test message bodies that work for the route(s) being tested
 	// Expected message bodies
 	protected Object[] expectedBodies = { "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
 			"<p:Person xmlns:p=\"http://www.app.customer.com\"\n" + 
@@ -26,6 +25,7 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
 			"    <p:code>Male</p:code>\n" + 
 			"  </p:gender>\n" + 
 			"</p:Person>"};
+	
 	// Templates to send to input endpoints
 
 	@Produce(uri = "direct:integrateRoute")
@@ -37,9 +37,9 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
 		for (Object expectedBody : expectedBodies) {
 			integrateEndpoint.sendBody(expectedBody);
 		}
-
 		// Validate our expectations
 		assertMockEndpointsSatisfied();
+		assertValidContext(context);
 	}
 
 	@Override
