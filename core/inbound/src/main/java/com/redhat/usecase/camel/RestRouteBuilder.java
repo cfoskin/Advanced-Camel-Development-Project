@@ -23,9 +23,5 @@ public class RestRouteBuilder extends RouteBuilder{
        	.transform(constant(2))
        	.end()
        ;
-		
-		
-		
-
 	}
 }

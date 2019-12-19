@@ -1,20 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>com.customer.app</groupId>
     <artifactId>core</artifactId>
     <version>1.0</version>
   </parent>
-
   <artifactId>inbound</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
-
   <name>Customer :: Application :: Core :: Inbound</name>
-
   <dependencies>
     <dependency>
       <groupId>org.apache.camel</groupId>
@@ -46,7 +42,6 @@
       <artifactId>artifacts</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-     <!-- logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -62,22 +57,30 @@
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
-   <dependency>
+    <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jaxb</artifactId>
-       <version>3.0.0</version>
+      <version>3.0.0</version>
     </dependency>
+    	<!--  Testing  -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-test-spring</artifactId>
+      <scope>test</scope>
+    </dependency>   
   </dependencies>
-
   <build>
     <plugins>
-      <!-- allows the route to be ran via 'mvn camel:run' -->
       <plugin>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-maven-plugin</artifactId>
         <version>2.12.0.redhat-610379</version>
       </plugin>
-      
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
@@ -91,5 +94,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
