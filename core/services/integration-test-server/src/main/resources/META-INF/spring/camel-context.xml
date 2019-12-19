@@ -2,8 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:jaxws="http://cxf.apache.org/jaxws"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
     xmlns:osgi="http://www.springframework.org/schema/osgi"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://camel.apache.org/schema/cxf  http://camel.apache.org/schema/cxf/camel-cxf.xsd">
     <!-- The way properties are used changes WILDLY between deployment platforms.
@@ -19,20 +19,15 @@
   connection pool set up in the mq-service project-->
     <!--     <osgi:reference id="activemqService" interface="org.apache.camel.Component"/>
  -->
- 
-   <cxf:cxfEndpoint 
+  <!--   <cxf:cxfEndpoint
         address="http://localhost:8001/PersonEJBService/PersonEJB"
-        id="personEJBServiceEndpoint" 
-        loggingFeatureEnabled="true" 
-        serviceClass="com.sun.mdm.index.webservice.PersonEJB" 
-      	wsdlURL="wsdl/EMPI_18080_2.wsdl"/>
-        
-        
-    <!-- <jaxws:endpoint
+        id="personEJBServiceEndpoint" loggingFeatureEnabled="true"
+        serviceClass="com.sun.mdm.index.webservice.PersonEJB" wsdlURL="wsdl/EMPI_18080_2.wsdl"/> -->
+    <jaxws:endpoint
         address="http://localhost:8001/PersonEJBService/PersonEJB"
         endpointName="e:PersonEJBPort" id="personEJBServiceEndpoint"
         implementor="#personEJBImpl" serviceName="s:PersonEJBService"
         wsdlLocation="wsdl/EMPI_18080_2.wsdl"
-        xmlns:e="http://webservice.index.mdm.sun.com/" xmlns:s="http://webservice.index.mdm.sun.com/"/> -->
+        xmlns:e="http://webservice.index.mdm.sun.com/" xmlns:s="http://webservice.index.mdm.sun.com/"/>
     <bean class="com.company.app.test.PersonEJBImpl" id="personEJBImpl"/>
 </beans>

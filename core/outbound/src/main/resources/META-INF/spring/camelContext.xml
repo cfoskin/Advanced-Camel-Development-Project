@@ -2,10 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:camel="http://camel.apache.org/schema/spring"
     xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:osgi="http://www.springframework.org/schema/osgi"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:osgi="http://www.springframework.org/schema/osgi"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  http://camel.apache.org/schema/cxf  http://camel.apache.org/schema/cxf/camel-cxf.xsd">
-   
     <bean class="org.apache.activemq.ActiveMQConnectionFactory" id="jmsConnectionFactory">
         <property name="brokerURL" value="tcp://localhost:61616"/>
     </bean>
@@ -17,20 +16,17 @@
     <bean class="org.springframework.jms.core.JmsTemplate" id="jmsTemplate">
         <property name="connectionFactory" ref="pooledConnectionFactory"/>
     </bean>
-    
     <cxf:cxfEndpoint
-      address="http://localhost:8001/PersonEJBService/PersonEJB"
-      id="nextgateService" loggingFeatureEnabled="true"
-      serviceClass="com.sun.mdm.index.webservice.PersonEJB" 
-      wsdlURL="classpath:wsdl/EMPI_18080_2.wsdl"/>
-      
-      
+        address="http://localhost:8001/PersonEJBService/PersonEJB"
+        id="nextgateService" loggingFeatureEnabled="true"
+        serviceClass="com.sun.mdm.index.webservice.PersonEJB" wsdlURL="classpath:wsdl/EMPI_18080_2.wsdl"/>
     <bean
         class="org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy" id="serviceStrategy">
         <constructor-arg value="com.sun.mdm.index.webservice.PersonEJB"/>
         <constructor-arg value="true"/>
     </bean>
     <bean class="com.redhat.customer.camel.OutboundRouteBuilder" id="outboundRouteBuilder"/>
+    <bean class="com.redhat.customer.translate.TransformToExecuteMatch" id="transformToExecuteMatch"/>
     <camelContext id="outboundSOAP" trace="false" xmlns="http://camel.apache.org/schema/spring">
         <propertyPlaceholder id="myPropertyPlaceholder" location="ref:outboundProps"/>
         <!-- stream caching has to be enabled to process the message and log it from cxf -->
@@ -41,7 +37,6 @@
             <soapjaxb contextPath="com.sun.mdm.index.webservice"
                 elementNameStrategyRef="serviceStrategy" id="nextgateFormat"/>
         </dataFormats>
-        
         <route id="unmarshallXmlRoute">
             <from id="unmarshallXml" uri="direct:unmarshallXml"/>
             <unmarshal id="unmarshal1" ref="nextgateFormat"/>
