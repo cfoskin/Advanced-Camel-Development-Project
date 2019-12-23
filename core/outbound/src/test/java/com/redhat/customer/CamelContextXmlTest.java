@@ -1,4 +1,4 @@
-package com.redhat.usecase;
+package com.redhat.customer;
 
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -6,10 +6,10 @@ import org.apache.camel.test.spring.CamelSpringTestSupport;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.customer.app.Person;
-
 public class CamelContextXmlTest extends CamelSpringTestSupport {
 
+	// TODO Create test message bodies that work for the route(s) being tested
+	// Expected message bodies
 	// Expected message bodies
 	protected Object[] expectedBodies = { "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
 			"<p:Person xmlns:p=\"http://www.app.customer.com\"\n" + 
@@ -29,19 +29,22 @@ public class CamelContextXmlTest extends CamelSpringTestSupport {
 			"</p:Person>"};
 	
 	// Templates to send to input endpoints
+	@Produce(uri = "direct:unmarshallXml")
+	protected ProducerTemplate inputEndpoint;
 
-	@Produce(uri = "direct:integrateRoute")
-	protected ProducerTemplate integrateEndpoint;
-	
 	@Test
 	public void testCamelRoute() throws Exception {
 
+		// Define some expectations
+
+		// For now, let's just wait for some messages// TODO Add some expectations here
+		// Send some messages to input endpoints
 		for (Object expectedBody : expectedBodies) {
-			integrateEndpoint.sendBody(expectedBody);
+			inputEndpoint.sendBody(expectedBody);
 		}
+
 		// Validate our expectations
 		assertMockEndpointsSatisfied();
-		assertValidContext(context);
 	}
 
 	@Override
